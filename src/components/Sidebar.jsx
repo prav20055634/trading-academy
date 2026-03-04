@@ -3,11 +3,9 @@ import React, { useState } from "react";
 const NAV = [
   { section: "TRADING" },
   { id: "home",    label: "Dashboard",     icon: "⚡" },
-  { id: "scanner", label: "Signal Scanner", icon: "🔍" },
   { id: "markets",    label: "Markets",        icon: "📈" },
   { id: "signals",    label: "Signal Checker", icon: "🎯" },
   { id: "analyzer",   label: "Auto Analyzer",  icon: "🔍" },
-  { id: "scanner",    label: "Scanner",        icon: "🔍" },
   { id: "news",       label: "Live News",      icon: "📰" },
   { section: "ANALYSIS" },
   { id: "backtest",   label: "Backtester",     icon: "🔬" },

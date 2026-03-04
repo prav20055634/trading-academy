@@ -5,6 +5,22 @@ import { FOREX_PAIRS, CRYPTO_PAIRS, INDIAN_MARKETS, STRATEGIES } from "../data/m
 
 const ALL_PAIRS = [...FOREX_PAIRS, ...CRYPTO_PAIRS, ...INDIAN_MARKETS];
 
+// Currency symbol based on instrument type
+const INDIAN_IDS = INDIAN_MARKETS.map(p => p.id);
+const CRYPTO_IDS = CRYPTO_PAIRS.map(p => p.id);
+
+function getCurrencySymbol(pairId) {
+  if (INDIAN_IDS.includes(pairId)) return "₹";
+  if (CRYPTO_IDS.includes(pairId)) return "$";
+  return "$"; // forex = USD
+}
+
+function formatPnl(amount, pairId) {
+  const sym = getCurrencySymbol(pairId);
+  const abs = Math.abs(parseFloat(amount) || 0).toFixed(2);
+  return amount >= 0 ? `+${sym}${abs}` : `-${sym}${abs}`;
+}
+
 const defaultForm = {
   pair: "EURUSD", direction: "BUY", strategy: "OB + CHoCH",
   entryPrice: "", stopLoss: "", takeProfit: "",
@@ -112,7 +128,7 @@ export default function Portfolio() {
                   <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{t.strategy}</span>
                   <span style={{ fontSize: 11, fontFamily: "var(--font-mono)", color: "var(--text-primary)" }}>{t.entryPrice}</span>
                   <span style={{ fontSize: 11, fontFamily: "var(--font-mono)", color: t.status === "WIN" ? "var(--accent-green)" : t.status === "LOSS" ? "var(--accent-red)" : "var(--accent-orange)" }}>
-                    {t.status === "OPEN" ? "OPEN" : t.pnl >= 0 ? `+$${t.pnl}` : `-$${Math.abs(t.pnl)}`}
+                    {t.status === "OPEN" ? "OPEN" : t.pnl >= 0 ? formatPnl(t.pnl, t.pair) : formatPnl(t.pnl, t.pair)}
                   </span>
                   <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{t.rr ? `1:${t.rr}` : "—"}</span>
                   <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{t.session}</span>
@@ -209,7 +225,7 @@ export default function Portfolio() {
                       fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 700,
                       color: t.status === "WIN" ? "var(--accent-green)" : t.status === "LOSS" ? "var(--accent-red)" : "var(--accent-orange)"
                     }}>
-                      {t.status === "OPEN" ? "🟡 OPEN" : t.status === "WIN" ? `✅ +$${t.pnl}` : `❌ -$${Math.abs(t.pnl)}`}
+                      {t.status === "OPEN" ? "🟡 OPEN" : t.status === "WIN" ? `✅ ${formatPnl(t.pnl, t.pair)}` : `❌ ${formatPnl(t.pnl, t.pair)}`}
                     </span>
                     {t.status === "OPEN" && (
                       <div style={{ display: "flex", gap: 6 }}>
@@ -227,7 +243,7 @@ export default function Portfolio() {
                   <span>Entry: <span style={{ color: "var(--text-primary)", fontFamily: "var(--font-mono)" }}>{t.entryPrice}</span></span>
                   <span>SL: <span style={{ color: "var(--accent-red)", fontFamily: "var(--font-mono)" }}>{t.stopLoss}</span></span>
                   <span>TP: <span style={{ color: "var(--accent-green)", fontFamily: "var(--font-mono)" }}>{t.takeProfit}</span></span>
-                  <span>Risk: <span style={{ color: "var(--accent-orange)" }}>${t.riskAmount}</span></span>
+                  <span>Risk: <span style={{ color: "var(--accent-orange)" }}>{getCurrencySymbol(t.pair)}{t.riskAmount}</span></span>
                   {t.rr && <span>R:R: <span style={{ color: "var(--accent-blue)" }}>1:{t.rr}</span></span>}
                   <span style={{ marginLeft: "auto" }}>{new Date(t.date).toLocaleDateString("en-IN")}</span>
                 </div>
@@ -248,6 +264,9 @@ export default function Portfolio() {
             <div>Current account: <strong style={{ color: "var(--text-primary)" }}>${portfolio.accountSize}</strong></div>
             <div>1.5% risk per trade: <strong style={{ color: "var(--accent-orange)" }}>${(portfolio.accountSize * 0.015).toFixed(2)}</strong></div>
             <div>2% risk per trade: <strong style={{ color: "var(--accent-red)" }}>${(portfolio.accountSize * 0.02).toFixed(2)}</strong></div>
+            <div style={{ marginTop: 12, fontSize: 11, color: "var(--text-muted)" }}>
+              💡 Currency symbols auto-switch: $ for Forex/Crypto — ₹ for Indian markets (NIFTY, SENSEX, BANKNIFTY)
+            </div>
           </div>
         </div>
       )}

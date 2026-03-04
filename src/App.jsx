@@ -8,7 +8,6 @@ import SignalChecker from "./pages/SignalChecker";
 import LearningPath from "./pages/LearningPath";
 import Portfolio from "./pages/Portfolio";
 import News from "./pages/News";
-import Scanner from "./pages/Scanner";
 import { Calculator } from "./pages/Calculator";
 import Strategies from "./pages/Strategies";
 import Rules from "./pages/Rules";
@@ -16,7 +15,6 @@ import Backtest from "./pages/Backtest";
 import Analyzer from "./pages/Analyzer";
 
 const PAGE_TITLES = {
-  scanner: "Signal Scanner",
   home: "Dashboard",
   markets: "Markets & Live Charts",
   signals: "Signal Checker",
@@ -40,7 +38,6 @@ export default function App() {
 
   const renderPage = () => {
     switch (page) {
-      case "scanner": return <Scanner />;
       case "home": return <Dashboard onNavigate={navigate} />;
       case "markets": return <Markets initialPair={marketPair} />;
       case "signals": return <SignalChecker />;
