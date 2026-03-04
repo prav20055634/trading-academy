@@ -154,7 +154,7 @@ export const INDIAN_MARKETS = [
   {
     id: "NIFTY50", name: "NIFTY 50", nickname: "India 50 Index",
     icon: "🇮🇳", volatility: "MEDIUM", color: "#ff6b35",
-    tvSymbol: "NSE:NIFTY", yahooSymbol: "^NSEI",
+    tvSymbol: "NSE:NIFTY50", yahooSymbol: "^NSEI",
     minTarget: 200, maxTarget: 800,
     keyLevels: ["22000","22500","23000","23500","24000","25000"],
     description: "Top 50 NSE companies. Most traded Indian index. SMC works on 15min+.",
