@@ -1,0 +1,63 @@
+import React, { useState } from "react";
+import "./index.css";
+import Sidebar from "./components/Sidebar";
+import TopBar from "./components/TopBar";
+import Dashboard from "./pages/Dashboard";
+import Markets from "./pages/Markets";
+import SignalChecker from "./pages/SignalChecker";
+import LearningPath from "./pages/LearningPath";
+import Portfolio from "./pages/Portfolio";
+import News from "./pages/News";
+import { Calculator } from "./pages/Calculator";
+import Strategies from "./pages/Strategies";
+import Rules from "./pages/Rules";
+import Backtest from "./pages/Backtest";
+
+const PAGE_TITLES = {
+  home: "Dashboard",
+  markets: "Markets & Live Charts",
+  signals: "Signal Checker",
+  learning: "Learning Path",
+  portfolio: "Portfolio Tracker",
+  news: "Live News",
+  calculator: "Position Calculator",
+  strategies: "Strategy Reference",
+  rules: "Trading Rules",
+  backtest: "Backtester",
+};
+
+export default function App() {
+  const [page, setPage] = useState("home");
+  const [marketPair, setMarketPair] = useState(null);
+
+  const navigate = (p, data) => {
+    setPage(p);
+    if (p === "markets" && data) setMarketPair(data);
+  };
+
+  const renderPage = () => {
+    switch (page) {
+      case "home": return <Dashboard onNavigate={navigate} />;
+      case "markets": return <Markets initialPair={marketPair} />;
+      case "signals": return <SignalChecker />;
+      case "learning": return <LearningPath />;
+      case "portfolio": return <Portfolio />;
+      case "news": return <News />;
+      case "calculator": return <Calculator />;
+      case "strategies": return <Strategies />;
+      case "rules": return <Rules />;
+      case "backtest": return <Backtest />;
+      default: return <Dashboard onNavigate={navigate} />;
+    }
+  };
+
+  return (
+    <div className="app-layout">
+      <Sidebar active={page} onNav={setPage} />
+      <div className="main-content">
+        <TopBar title={PAGE_TITLES[page] || "Trading Academy Pro"} />
+        {renderPage()}
+      </div>
+    </div>
+  );
+}
