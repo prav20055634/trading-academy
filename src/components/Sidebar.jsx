@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 const NAV = [
   { section: "TRADING" },
-  { id: "home",    label: "Dashboard",     icon: "⚡" },
+  { id: "home",     label: "Dashboard",     icon: "⚡" },
+  { id: "scanner",  label: "Signal Scanner", icon: "🔍" },
   { id: "markets",    label: "Markets",        icon: "📈" },
   { id: "signals",    label: "Signal Checker", icon: "🎯" },
-  { id: "analyzer",   label: "Auto Analyzer",  icon: "🔍" },
-  { id: "news",       label: "Live News",      icon: "📰" },
+  { id: "news",       label: "Live News",  icon: "📰" },
   { section: "ANALYSIS" },
   { id: "backtest",   label: "Backtester",     icon: "🔬" },
   { id: "portfolio",  label: "Portfolio",      icon: "💼" },
@@ -28,7 +28,6 @@ const MOBILE_NAV = [
 
 // All pages shown in "More" drawer on mobile
 const MORE_NAV = [
-  { id: "analyzer",   label: "Auto Analyzer", icon: "🔍" },
   { id: "news",       label: "Live News",     icon: "📰" },
   { id: "learning",   label: "Learning Path", icon: "🎓" },
   { id: "strategies", label: "Strategies",    icon: "🧠" },
