@@ -366,6 +366,16 @@ body {
 }
 @media (max-width: 640px) {
   .sidebar { display: none; }
-  .main-content { margin-left: 0; }
+  .main-content { margin-left: 0; padding-bottom: 70px; }
   .page { padding: 12px; }
+  .mobile-bottom-nav { display: flex !important; }
+  .mobile-more-drawer { display: block !important; }
+  .mobile-overlay { display: block !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: 1fr 1fr !important; }
+  .topbar { padding: 0 12px; }
+  .topbar-right { gap: 6px; }
+  .session-badge { display: none; }
+  .session-badge:first-child { display: flex; }
 }
