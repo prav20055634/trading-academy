@@ -19,21 +19,21 @@ const NAV = [
 
 // Bottom nav items for mobile (most important pages)
 const MOBILE_NAV = [
-  { id: "home",       label: "Home",      icon: "⚡" },
-  { id: "markets",    label: "Markets",   icon: "📈" },
-  { id: "signals",    label: "Signals",   icon: "🎯" },
-  { id: "portfolio",  label: "Portfolio", icon: "💼" },
-  { id: "more",       label: "More",      icon: "☰"  },
+  { id: "home",     label: "Home",    icon: "⚡" },
+  { id: "scanner",  label: "Scanner", icon: "🔍" },
+  { id: "signals",  label: "Signals", icon: "🎯" },
+  { id: "portfolio",label: "Portfolio",icon: "💼" },
+  { id: "more",     label: "More",    icon: "☰"  },
 ];
 
-// All pages shown in "More" drawer on mobile
 const MORE_NAV = [
-  { id: "news",       label: "Live News",     icon: "📰" },
-  { id: "learning",   label: "Learning Path", icon: "🎓" },
-  { id: "strategies", label: "Strategies",    icon: "🧠" },
-  { id: "calculator", label: "Calculator",    icon: "🧮" },
-  { id: "backtest",   label: "Backtester",    icon: "🔬" },
-  { id: "rules",      label: "Rules",         icon: "📋" },
+  { id: "markets",    label: "Markets",      icon: "📈" },
+  { id: "news",       label: "Live News",    icon: "📰" },
+  { id: "learning",   label: "Learning Path",icon: "🎓" },
+  { id: "strategies", label: "Strategies",   icon: "🧠" },
+  { id: "calculator", label: "Calculator",   icon: "🧮" },
+  { id: "backtest",   label: "Backtester",   icon: "🔬" },
+  { id: "rules",      label: "Rules",        icon: "📋" },
 ];
 
 export default function Sidebar({ active, onNav }) {
