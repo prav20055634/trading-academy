@@ -32,6 +32,20 @@ const SESSIONS   = ["London Open KZ","NY Open KZ","London Full","Asian","India M
 
 export default function Portfolio() {
   const [trades,   setTrades]   = useState(load);
+
+  // Auto-refresh to catch auto-trader updates (TP/SL hits)
+  useEffect(() => {
+    const t = setInterval(() => setTrades(load()), 5000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Also reload when window regains focus
+  useEffect(() => {
+    const onFocus = () => setTrades(load());
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) setTrades(load()); });
+    return () => window.removeEventListener("focus", onFocus);
+  }, []);
   const [tab,      setTab]      = useState("journal");  // journal | stats | add
   const [filter,   setFilter]   = useState("All");
   const [closing,  setClosing]  = useState(null);
@@ -302,6 +316,7 @@ export default function Portfolio() {
                         {t.status==="OPEN"?"🟡 OPEN":t.status==="WIN"?"✅ WIN":"❌ LOSS"}
                       </span>
                       <span style={{ fontSize:10, color:"var(--text-muted)", background:"var(--bg-primary)", padding:"2px 6px", borderRadius:4 }}>{t.strategy}</span>
+                      {t.source==="scanner" && <span style={{ fontSize:9, color:"var(--accent-blue)", background:"rgba(79,195,247,0.1)", padding:"2px 6px", borderRadius:4, border:"1px solid rgba(79,195,247,0.2)" }}>🔍 Scanner</span>}
                     </div>
                     <button onClick={()=>deleteTrade(t.id)} style={{ background:"none", border:"none", color:"var(--text-muted)", cursor:"pointer", fontSize:14 }}>🗑</button>
                   </div>
