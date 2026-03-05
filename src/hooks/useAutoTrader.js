@@ -63,8 +63,13 @@ function evaluate(id, price, session) {
   const met = [c1,c2,c3,c4,c5,c6,c7,c8,c9].filter(Boolean).length;
   const dir = isBull ? "BUY" : "SELL";
 
-  // Only generate trade signal during kill zone with 7+ conditions
-  if (!c7 || met < cfg.minMet) return null;
+  // Only generate trade signal during any valid session with 7+ conditions
+  const sessValid = cfg.sessions.includes("india")  && session?.india_active  ? true
+                  : cfg.sessions.includes("london") && session?.london_active ? true
+                  : cfg.sessions.includes("ny")     && session?.ny_active     ? true
+                  : cfg.sessions.includes("asian")  && session?.asian_active  ? true
+                  : false;
+  if (!sessValid || met < cfg.minMet) return null;
 
   const isBuy = dir === "BUY";
   const entry = p;
